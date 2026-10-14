@@ -1,0 +1,99 @@
+.tabs {
+  width: 100%;
+}
+
+.tabs__list {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+
+.tabs__tab {
+  --tab-accent: var(--accent);
+
+  padding: 0.5rem 0.75rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0.375rem 0.375rem 0 0;
+  background: none;
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--muted);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* Each tab owns a color: Overview = sky, Keyboard = violet, ARIA = amber. */
+.tabs__tab[data-tab='overview'] {
+  --tab-accent: var(--tab-sky);
+}
+
+.tabs__tab[data-tab='keyboard'] {
+  --tab-accent: var(--tab-violet);
+}
+
+.tabs__tab[data-tab='aria'] {
+  --tab-accent: var(--tab-amber);
+}
+
+.tabs__tab:hover:not(:disabled) {
+  color: var(--tab-accent);
+  background: color-mix(in srgb, var(--tab-accent) 12%, transparent);
+}
+
+.tabs__tab[aria-selected='true'] {
+  color: var(--tab-accent);
+  border-bottom-color: var(--tab-accent);
+  font-weight: 600;
+  background: color-mix(in srgb, var(--tab-accent) 14%, transparent);
+  box-shadow: 0 6px 14px -8px var(--tab-accent);
+}
+
+.tabs__tab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tabs__panel {
+  --tab-accent: var(--accent);
+
+  padding: 0.85rem 0 0;
+}
+
+.tabs__panel[data-tab='overview'] {
+  --tab-accent: var(--tab-sky);
+}
+
+.tabs__panel[data-tab='keyboard'] {
+  --tab-accent: var(--tab-violet);
+}
+
+.tabs__panel[data-tab='aria'] {
+  --tab-accent: var(--tab-amber);
+}
+
+/* Only the visible (selected) panel shows its tab's accent. */
+.tabs__panel:not([hidden]) {
+  border-left: 3px solid var(--tab-accent);
+  border-radius: 0.375rem;
+  padding: 0.85rem 0.9rem;
+  background: color-mix(in srgb, var(--tab-accent) 7%, transparent);
+}
+
+.tabs__panel > :last-child {
+  margin-bottom: 0;
+}
+
+.tabs__panel ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  /* Tailwind preflight makes all ul list-style: none; the demo lists rely on
+     the browser's default disc bullets. */
+  list-style: disc;
+}

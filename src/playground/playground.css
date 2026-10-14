@@ -1,0 +1,229 @@
+.playground {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+.playground__header {
+  margin-bottom: 2.5rem;
+}
+
+/* Gradient headline: sky → violet for a vivid focal point on the deep
+   background. */
+.playground__header h1 {
+  font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.6rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(92deg, #7dd3fc 0%, #a78bfa 55%, #f0abfc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* Fallback for browsers without background-clip: text. */
+  text-shadow: none;
+}
+
+/* Forced-colors (Windows High Contrast) mode ignores background-clip and
+   would render the gradient text as transparent — restore a solid color. */
+@media (forced-colors: active) {
+  .playground__header h1 {
+    background: none;
+    color: var(--fg);
+  }
+}
+
+.playground__header p {
+  color: var(--muted);
+  max-width: 48ch;
+  font-size: 1.0625rem;
+}
+
+.playground__demos {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 48rem) {
+  .playground__demos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.demo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+  /* Slight lift off the page: lighter surface + deep shadow + faint top
+     highlight so the cards read as glass panels on the navy background. */
+  background: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.04),
+    rgb(255 255 255 / 0) 30%
+  ),
+    var(--surface);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.06) inset,
+    0 18px 40px -20px rgb(0 0 0 / 0.65);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.demo:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.08) inset,
+    0 24px 48px -20px rgb(0 0 0 / 0.75);
+}
+
+.demo h2 {
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+/* Each card announces its component with a thin accent stripe. */
+.demo::before {
+  content: '';
+  display: block;
+  height: 3px;
+  margin: -1.25rem -1.25rem 0.25rem;
+  border-radius: 0.875rem 0.875rem 0 0;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--demo-accent, var(--accent)) 85%, transparent),
+    transparent
+  );
+}
+
+.demo[data-demo='modal-dialog'] {
+  --demo-accent: var(--tab-sky);
+}
+
+.demo[data-demo='tabs'] {
+  --demo-accent: var(--tab-violet);
+}
+
+.demo[data-demo='disclosure'] {
+  --demo-accent: var(--tab-amber);
+}
+
+.demo__summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.demo__slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 8rem;
+  margin-top: auto;
+  padding: 1rem;
+  border: 1px dashed var(--border);
+  border-radius: 0.5rem;
+  background: rgb(255 255 255 / 0.02);
+  text-align: center;
+}
+
+.demo__placeholder {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.demo__slot--filled {
+  display: block;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+}
+
+.faq {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.faq p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.modal-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.modal-demo__hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.modal-demo__button {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface-2);
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--fg);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.modal-demo__button:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+}
+
+.modal-demo__button--primary {
+  border-color: transparent;
+  background: linear-gradient(135deg, #2f6feb, #7c3aed);
+  color: #fff;
+  box-shadow: 0 8px 20px -8px rgb(124 58 237 / 0.55);
+}
+
+.modal-demo__button--primary:hover {
+  border-color: transparent;
+  filter: brightness(1.1);
+}
+
+.modal-demo__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+}
+
+.modal-demo__field input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: var(--surface-2);
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--fg);
+}
+
+.modal-demo__field input::placeholder {
+  color: var(--muted);
+}
+
+.modal-demo__field input:focus-visible {
+  border-color: var(--accent);
+}
